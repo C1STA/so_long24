@@ -6,59 +6,61 @@
 /*   By: wacista <wacista@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:46:18 by wacista           #+#    #+#             */
-/*   Updated: 2024/10/28 18:19:31 by wacista          ###   ########.fr       */
+/*   Updated: 2024/10/30 11:56:53 by wacista          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-bool	isextension_valid(char *s)
+bool	isextension_valid(char **av)
 {
 	size_t	i;
 
-	i = ft_strlen(s);
+	i = ft_strlen(av[1]);
 	if (i > 3)
 	{
-		if (!ft_strcmp(".ber", &s[i - 4]))
+		if (!ft_strcmp(".ber", &av[1][i - 4]))
 			return (true);
 	}
-	ft_printf("Error\nso_long: map is not valid\n");
+	ft_printf("Error\n%s: %s: unknown extension\n", &av[0][2], av[1]);
 	return (false);
 }
 
-void	get_map_size(char **av, t_v *v)
+void	get_map_size(char **av, t_game *g)
 {
-	int		fd;
 	char	*map;
 
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		error_return();
-	map = get_next_line(fd);
+	g->m.fd = open(av[1], O_RDONLY);
+	if (g->m.fd == -1)
+		error_return(g, av, 0);
+	map = get_next_line(g->m.fd);
 	if (!map)
-		error_return();
-	v->m.x = (int)ft_strlen(map);
+		error_return(g, av, 1);
+	g->m.x = ft_strlen(map);
+	g->m.y = 1;
 	free(map);
-	v->m.y = 1;
 	while (map)
 	{
-		map = get_next_line(fd);
+		map = get_next_line(g->m.fd);
 		if (map)
 		{
-			v->m.y++;
+			g->m.y++;
 			free(map);
 		}
 	}
-	close(fd);
+	close(g->m.fd);
+	g->m.fd = 0;
 }
 
-char	**get_map(char **av, t_v *v)
+char	**get_map(char **av, t_game *g)
 {
 	int		i;
-	int		fd;
-	char	**map;
+	//int		fd;
+	//char	**map;
 
 	i = 0;
-	v->m.map = NULL;
-	get_map_size(av, v);
+	g->m.map = NULL;
+	g->m.fd = 0;
+	get_map_size(av, g);
+	return (NULL);
 }

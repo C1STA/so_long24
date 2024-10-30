@@ -15,7 +15,8 @@ RM		= rm -rf
 
 SRCPATH	= src/
 SRC	=	main.c \
-			map_extension.c
+			map_extension.c \
+			error.c
 
 all: $(NAME)
 

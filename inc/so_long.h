@@ -6,7 +6,7 @@
 /*   By: wacista <wacista@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:32:17 by wacista           #+#    #+#             */
-/*   Updated: 2024/10/28 17:53:43 by wacista          ###   ########.fr       */
+/*   Updated: 2024/10/30 11:45:19 by wacista          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <stdbool.h>
+# include <string.h>
 # include <errno.h>
 # include "libft.h"
 # include "mlx.h"
 
 typedef struct s_map
 {
+	int		fd;
 	int		x;
 	int		y;
 	int		item;
@@ -42,6 +44,8 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*win;
 	int		img_pxl;
+	int		screen_x;
+	int		screen_y;
 	void	*img_0;
 	void	*img_1;
 	void	*img_e;
@@ -53,15 +57,17 @@ typedef struct s_mlx
 	void	*img_h;
 }	t_mlx;
 
-typedef struct s_vars
+typedef struct s_game
 {
 	t_mlx	x;
 	t_map	m;
 	int		move_counter;
-}	t_v;
+}	t_game;
 
 # define IMG_SIZE 32
 
-bool	isextension_valid(char *s);
+bool	isextension_valid(char **av);
+char	**get_map(char **av, t_game *g);
+void	error_return(t_game *g, char **av, int n);
 
 #endif
