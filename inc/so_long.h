@@ -6,7 +6,7 @@
 /*   By: wacista <wacista@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:32:17 by wacista           #+#    #+#             */
-/*   Updated: 2024/10/30 11:45:19 by wacista          ###   ########.fr       */
+/*   Updated: 2024/10/31 20:47:31 by wacista          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_map
 	int		y_pos;
 	int		x_exit;
 	int		y_exit;
+	int		exit;
+	int		pos;
 	char	**map;
 }	t_map;
 
@@ -67,7 +69,12 @@ typedef struct s_game
 # define IMG_SIZE 32
 
 bool	isextension_valid(char **av);
-char	**get_map(char **av, t_game *g);
+void	get_map(t_game *g, char **av);
 void	error_return(t_game *g, char **av, int n);
+void	isrectangle(t_game *g, char **av);
+void	iswall(t_game *g, char **av);
+void	isitems(t_game *g, char **av);
+void	isplayable(t_game *g, char **av);
+void	free_game(t_game *g);
 
 #endif

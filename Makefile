@@ -16,7 +16,9 @@ RM		= rm -rf
 SRCPATH	= src/
 SRC	=	main.c \
 			map_extension.c \
-			error.c
+			error.c \
+			isvalid.c \
+			isplayable.c
 
 all: $(NAME)
 

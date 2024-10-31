@@ -6,7 +6,7 @@
 /*   By: wacista <wacista@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:32:44 by wacista           #+#    #+#             */
-/*   Updated: 2024/10/30 11:54:08 by wacista          ###   ########.fr       */
+/*   Updated: 2024/10/31 20:47:41 by wacista          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ void	init_struct(t_game *g)
 {
 	g->m.fd = 0;
 	g->m.map = NULL;
+	g->x.screen_y = 0;
+	g->x.screen_x = 0;
+	g->x.mlx = mlx_init();
+	if (g->x.mlx)
+	{
+		mlx_get_screen_size(g->x.mlx, &g->x.screen_x, &g->x.screen_y);
+		mlx_destroy_display(g->x.mlx);
+		free(g->x.mlx);
+	}
+	g->x.mlx = NULL;
+	g->m.exit = 0;
+	g->m.item = 0;
+	g->m.pos = 0;
 }
 
 int	main(int ac, char **av)
@@ -30,14 +43,13 @@ accepts 1 arg, received %d\n", &av[0][2], ac - 1), 2);
 	g = (t_game *)malloc(sizeof(t_game));
 	if (!g)
 		error_return(g, av, 1);
-//
-	g->x.mlx = mlx_init();
-	mlx_get_screen_size(g->x.mlx, &g->x.screen_x, &g->x.screen_y);
-	printf("height: %d\nwidth: %d\n", g->x.screen_x, g->x.screen_y);
-	mlx_destroy_display(g->x.mlx);
-	free(g->x.mlx);
-//	
-	g->m.map = get_map(av, g);
-	free(g);
+	init_struct(g);
+	get_map(g, av);
+	isrectangle(g, av);
+	iswall(g, av);
+	isitems(g, av);
+	isplayable(g, av);
+	printf("ok\n");
+	free_game(g);
 	return (0);
 }
