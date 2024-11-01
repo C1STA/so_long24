@@ -6,7 +6,7 @@
 /*   By: wacista <wacista@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:46:18 by wacista           #+#    #+#             */
-/*   Updated: 2024/10/31 20:23:19 by wacista          ###   ########.fr       */
+/*   Updated: 2024/11/01 19:29:59 by wacista          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	get_map_size(t_game *g, char **av)
 	g->m.fd = 0;
 }
 
-void	init_map(t_game *g)
+static void	init_map(t_game *g)
 {
 	int	i;
 

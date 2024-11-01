@@ -18,7 +18,9 @@ SRC	=	main.c \
 			map_extension.c \
 			error.c \
 			isvalid.c \
-			isplayable.c
+			isplayable.c \
+			launcher.c \
+			moves.c
 
 all: $(NAME)
 

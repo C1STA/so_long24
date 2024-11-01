@@ -6,7 +6,7 @@
 /*   By: wacista <wacista@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:32:17 by wacista           #+#    #+#             */
-/*   Updated: 2024/10/31 20:47:31 by wacista          ###   ########.fr       */
+/*   Updated: 2024/11/01 19:25:57 by wacista          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_game
 	t_mlx	x;
 	t_map	m;
 	int		move_counter;
+	int		exit_status;
 }	t_game;
 
 # define IMG_SIZE 32
@@ -75,6 +76,11 @@ void	isrectangle(t_game *g, char **av);
 void	iswall(t_game *g, char **av);
 void	isitems(t_game *g, char **av);
 void	isplayable(t_game *g, char **av);
-void	free_game(t_game *g);
+int		free_game(t_game *g);
+void	launch_game(t_game *g, char **av);
+void	display_objects(t_game *g, int n);
+void	put_object_to_window(t_game *g, int x, int y, int n);
+int		keypress_events(int keysym, t_game *g);
+int		display_moves(t_game *g);
 
 #endif
